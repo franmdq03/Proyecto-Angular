@@ -1,0 +1,87 @@
+<table>
+    <thead>
+        <tr>
+            <!-- Encabezados de columnas para la información del dispositivo -->
+            <th style="text-align: left">ID</th>
+            <th style="text-align: left">NAME</th>
+            <th style="text-align: left">PRICE</th>
+            <th style="text-align: left">COLOR</th>
+            <th style="text-align: left">GENERATION</th>
+            <th style="text-align: left">CAPACITY</th>
+            <th colspan="2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Recorre cada dispositivo en la lista y lo muestra -->
+        <tr *ngFor="let device of deviceList" id="{{device.id}}">
+            <!-- Mostrar la fila si al menos una de las propiedades existe -->
+            <td *ngIf="device.data != null && 
+                (hasProp(device.data, 'price') || hasProp(device.data, 'color') || 
+                hasProp(device.data, 'generation') || hasProp(device.data, 'Capacity'))">{{device.id}}</td>
+
+            <td *ngIf="device.data != null && 
+                (hasProp(device.data, 'price') || hasProp(device.data, 'color') || 
+                hasProp(device.data, 'generation') || hasProp(device.data, 'Capacity'))">{{device.name}}</td>
+
+            <td *ngIf="device.data != null && 
+                (hasProp(device.data, 'price') || hasProp(device.data, 'color') || 
+                hasProp(device.data, 'generation') || hasProp(device.data, 'Capacity'))">{{device.data.price ||
+                'N/A'}}</td>
+
+            <td *ngIf="device.data != null && 
+                (hasProp(device.data, 'price') || hasProp(device.data, 'color') || 
+                hasProp(device.data, 'generation') || hasProp(device.data, 'Capacity'))">{{device.data.color ||
+                'N/A'}}</td>
+
+            <td *ngIf="device.data != null && 
+                (hasProp(device.data, 'price') || hasProp(device.data, 'color') || 
+                hasProp(device.data, 'generation') || hasProp(device.data, 'Capacity'))">{{device.data.generation ||
+                'N/A'}}</td>
+
+            <td *ngIf="device.data != null && 
+                (hasProp(device.data, 'price') || hasProp(device.data, 'color') || 
+                hasProp(device.data, 'generation') || hasProp(device.data, 'Capacity'))">{{device.data.Capacity ||
+                'N/A'}}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <!-- Inputs para agregar un nuevo dispositivo a la lista -->
+        <tr>
+            <td></td>
+            <td><input [(ngModel)]="name" placeholder="NAME"></td>
+            <td><input [(ngModel)]="price" placeholder="PRICE"></td>
+            <td><input [(ngModel)]="color" placeholder="COLOR"></td>
+            <td><input [(ngModel)]="generation" placeholder="GENERATION"></td>
+            <td><input [(ngModel)]="Capacity" placeholder="CAPACITY"></td>
+            <td colspan="2" style="text-align: center"><button (click)="save()">ADD</button></td>
+        </tr>
+    </tfoot>
+</table>
+
+<!-- Plantilla modal para ver/editar un dispositivo existente -->
+<ng-template #see let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">View Device</h5>
+        <button class="close topright" aria-label="Close" (click)="modal.dismiss()"><span
+                aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <!-- Campos de entrada para mostrar/editar detalles del dispositivo -->
+        <label>ID:</label>
+        <input class="form-control" [(ngModel)]="id2" readonly>
+        <label>NAME:</label>
+        <input class="form-control" [(ngModel)]="name2">
+        <label>PRICE:</label>
+        <input class="form-control" [(ngModel)]="price2">
+        <label>COLOR:</label>
+        <input class="form-control" [(ngModel)]="color2">
+        <label>GENERATION:</label>
+        <input class="form-control" [(ngModel)]="generation2">
+        <label>SCREEN SIZE:</label>
+        <input class="form-control" [(ngModel)]="Capacity2">
+    </div>
+    <div class="modal-footer">
+        <!-- Botón para actualizar los cambios -->
+        <button class="btn btn-primary" (click)="modal.close()">UPDATE</button>
+    </div>
+</ng-template>
